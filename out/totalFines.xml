@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<violations>
+    <violation>
+        <type>DUI</type>
+        <total_amount>22000.0</total_amount>
+    </violation>
+    <violation>
+        <type>SPEEDING</type>
+        <total_amount>13180.0</total_amount>
+    </violation>
+    <violation>
+        <type>CROSSING OVER A CENTER DIVIDER</type>
+        <total_amount>6000.0</total_amount>
+    </violation>
+    <violation>
+        <type>BREAKING SIGNALS</type>
+        <total_amount>5640.0</total_amount>
+    </violation>
+    <violation>
+        <type>DRIVING WITHOUT A LICENSE</type>
+        <total_amount>200.0</total_amount>
+    </violation>
+</violations>

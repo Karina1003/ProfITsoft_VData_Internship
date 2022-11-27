@@ -1,0 +1,23 @@
+{
+	"year" : 2021,
+	"violations" : 
+	[{
+		"date_time": "2021-05-05 15:39:03",
+		"first_name": "Oleg",
+		"last_name": "Petrenko",
+		"type": "BREAKING SIGNALS", 
+		"fine_amount": 1000.00 
+	},{
+		"date_time": "2021-06-06 15:39:03",
+		"first_name": "Oksana",
+		"last_name": "Lavrenchuk",
+		"type": "DUI", 
+		"fine_amount": 6000.00
+	},{
+		"date_time": "2021-07-07 15:39:03",
+		"first_name": "Serhii",
+		"last_name": "Ivanchuk",
+		"type": "SPEEDING", 
+		"fine_amount": 2500.00 
+	}]
+}

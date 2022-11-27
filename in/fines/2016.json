@@ -1,0 +1,35 @@
+{
+	"year" : 2016,
+	"violations" : 
+	[{
+		"date_time": "2016-05-05 15:39:03",
+		"first_name": "Oleg",
+		"last_name": "Petrenko",
+		"type": "DUI", 
+		"fine_amount": 4000.00 
+	},{
+		"date_time": "2016-06-06 15:39:03",
+		"first_name": "Nadiia",
+		"last_name": "Karpenko",
+		"type": "BREAKING SIGNALS", 
+		"fine_amount": 200.00
+	},{
+		"date_time": "2016-07-07 15:39:03",
+		"first_name": "Serhii",
+		"last_name": "Karpenko",
+		"type": "SPEEDING", 
+		"fine_amount": 350.00 
+	},{
+		"date_time": "2016-08-08 15:39:03",
+		"first_name": "Mariia",
+		"last_name": "Semchuk",
+		"type": "CROSSING OVER A CENTER DIVIDER", 
+		"fine_amount": 1000.00 
+	},{
+		"date_time": "2016-09-09 15:39:03",
+		"first_name": "Andrii",
+		"last_name": "Mykolaichuk",
+		"type": "BREAKING SIGNALS", 
+		"fine_amount": 340.00 
+	}]
+}

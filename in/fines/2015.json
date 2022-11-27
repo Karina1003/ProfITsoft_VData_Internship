@@ -1,0 +1,35 @@
+{
+	"year" : 2015,
+	"violations" : 
+	[{
+		"date_time": "2015-05-05 15:39:03",
+		"first_name": "Ivan",
+		"last_name": "Petrenko",
+		"type": "SPEEDING", 
+		"fine_amount": 340.00 
+	},{
+		"date_time": "2015-06-06 15:39:03",
+		"first_name": "Petro",
+		"last_name": "Karpenko",
+		"type": "DRIVING WITHOUT A LICENSE", 
+		"fine_amount": 100.00
+	},{
+		"date_time": "2015-07-07 15:39:03",
+		"first_name": "Ivan",
+		"last_name": "Karpenko",
+		"type": "CROSSING OVER A CENTER DIVIDER", 
+		"fine_amount": 1500.00 
+	},{
+		"date_time": "2015-08-08 15:39:03",
+		"first_name": "Olga",
+		"last_name": "Semchuk",
+		"type": "DRIVING WITHOUT A LICENSE", 
+		"fine_amount": 100.00 
+	},{
+		"date_time": "2015-09-09 15:39:03",
+		"first_name": "Nadiia",
+		"last_name": "Petrenko",
+		"type": "SPEEDING", 
+		"fine_amount": 340.00 
+	}]
+}
