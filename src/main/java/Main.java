@@ -68,12 +68,21 @@ public class Main {
             List<String> personList = new ArrayList<>();
             //pattern searches for a 'name = "Name"' with or without whitespaces between words and '='
             Pattern patternName = Pattern.compile(".*\\s*name\\s*=\\s*\"\\s*(\\S+)\\s*\".*");
-            //pattern searches for a 'surname = "Surname"' with or without whitespaces between words and '='
-            Pattern patternSurname = Pattern.compile(".*\\s*(surname\\s*=\\s*\"\\s*)(\\S+)(\\s*\").*");
+            //pattern searches for a 'surname = "Surname"'
+            //to delete the expression AND whitespace characters between word "surname" and previous word
+            Pattern patternSurnameDeleteSpaces = Pattern.compile(".*\\S+(\\s+surname\\s*=\\s*\"\\s*)(\\S+)(\\s*\").*");
+            //pattern searches for a 'surname = "Surname"'
+            //is used for lines which start with "surname" to preserve spaces at the beginning of the line
+            Pattern patternSurname = Pattern.compile("\\s*(surname\\s*=\\s*\"\\s*)(\\S+)(\\s*\").*");
             String surname = "";
             while (scanner.hasNext()) {
                 String row = scanner.nextLine();
+                Matcher matcherSurnameDeleteSpaces = patternSurnameDeleteSpaces.matcher(row);
                 Matcher matcherSurname = patternSurname.matcher(row);
+                if (matcherSurnameDeleteSpaces.matches()) {
+                    surname = matcherSurnameDeleteSpaces.group(2);
+                    row = row.replace(matcherSurnameDeleteSpaces.group(1)+matcherSurnameDeleteSpaces.group(2)+matcherSurnameDeleteSpaces.group(3), "");
+                }
                 if (matcherSurname.matches()) {
                     surname = matcherSurname.group(2);
                     row = row.replace(matcherSurname.group(1)+matcherSurname.group(2)+matcherSurname.group(3), "");
