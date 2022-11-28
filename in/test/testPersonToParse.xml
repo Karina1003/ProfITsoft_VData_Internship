@@ -1,0 +1,7 @@
+<persons>
+    <person name="Іван" surname="Іванчук" birthDate="09.09.1969" />
+    <person surname="Шевченко" name="Олег" birthDate="09.03.1994" />
+    <person name="Марія"
+            surname="Петренчук"
+            birthData="13.02.1971" />
+</persons>

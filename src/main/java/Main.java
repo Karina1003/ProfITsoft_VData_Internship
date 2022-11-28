@@ -85,7 +85,11 @@ public class Main {
                         if (matcherName.matches()) {
                             personRow = personRow.replace(matcherName.group(1), matcherName.group(1)+" "+surname);
                         }
-                        writer.write(personRow + "\n");
+                        if (personRow.contains("</persons>")) {
+                            writer.write(personRow);
+                        } else {
+                            writer.write(personRow + "\n");
+                        }
                     }
                     personList.clear();
                 }
