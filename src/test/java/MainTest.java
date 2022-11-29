@@ -23,6 +23,15 @@ public class MainTest {
         Assertions.assertTrue(FileUtils.contentEquals(fileOut, fileExpected));
     }
 
+    @Test
+    void testConcatNameSurnameEmptyFile() throws IOException {
+        File fileIn = new File("./in/test/testPersonEmpty.xml");
+        File fileOut = new File("./out/test/testPersonAfterConcatEmpty.xml");
+        Main.concatNameSurnameToXml(fileIn, fileOut);
+        File fileExpected = new File("./in/test/expectedPersonEmpty.xml");
+        Assertions.assertTrue(FileUtils.contentEquals(fileOut, fileExpected));
+    }
+
     //Task 2
     @Test
     void testCalculateFinesByTypeJson() {
@@ -35,6 +44,18 @@ public class MainTest {
         Map<String,Double> mapExpected = new LinkedHashMap<>();
         mapExpected.put("BREAKING SIGNALS", 600.00);
         mapExpected.put("SPEEDING", 350.00);
+        Assertions.assertEquals(mapExpected, mapToTest);
+    }
+
+    @Test
+    void testCalculateFinesByTypeJsonEmpty() {
+        Map<String,Double> mapToTest = new LinkedHashMap<>();
+        try {
+            mapToTest = Main.calculateFinesByTypeJson(new File("in/test/testFinesEmpty.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Map<String,Double> mapExpected = new LinkedHashMap<>();
         Assertions.assertEquals(mapExpected, mapToTest);
     }
 
@@ -61,9 +82,19 @@ public class MainTest {
         } catch (IOException | ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
         }
-
-
     }
 
+    @Test
+    void testCreateXmlOfFinesEmptyMap() {
+        try {
+            Map<String, Double> mapOfFines = new LinkedHashMap<>();
+            File fileOut = new File("./out/test/testTotalFinesEmptyMap.xml");
+            Main.createXmlOfFines(mapOfFines, fileOut);
+            File fileExpected = new File("./in/test/expectedFinesEmptyMap.xml");
+            Assertions.assertTrue(FileUtils.contentEquals(fileOut, fileExpected));
+        } catch (IOException | ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
     
 }

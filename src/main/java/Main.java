@@ -16,15 +16,13 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.IOException;
 import java.io.Writer;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -62,46 +60,23 @@ public class Main {
      */
     public static void concatNameSurnameToXml (File fileIn, File fileOut) throws IOException {
         try(InputStream is = new FileInputStream(fileIn);
-            Scanner scanner = new Scanner(is, StandardCharsets.UTF_8);
+            Scanner scanner = new Scanner(is, StandardCharsets.UTF_8).useDelimiter("(?<=>)");
             Writer writer = new FileWriter(fileOut)){
-
-            List<String> personList = new ArrayList<>();
             //pattern searches for a 'name = "Name"' with or without whitespaces between words and '='
-            Pattern patternName = Pattern.compile(".*\\s*name\\s*=\\s*\"\\s*(\\S+)\\s*\".*");
-            //pattern searches for a 'surname = "Surname"'
-            //to delete the expression AND whitespace characters between word "surname" and previous word
-            Pattern patternSurnameDeleteSpaces = Pattern.compile(".*\\S+(\\s+surname\\s*=\\s*\"\\s*)(\\S+)(\\s*\").*");
-            //pattern searches for a 'surname = "Surname"'
-            //is used for lines which start with "surname" to preserve spaces at the beginning of the line
-            Pattern patternSurname = Pattern.compile("\\s*(surname\\s*=\\s*\"\\s*)(\\S+)(\\s*\").*");
-            String surname = "";
+            Pattern patternName = Pattern.compile("(\\Wname\\s*=\\s*\"\\S+)(\")");
+            //pattern searches for a 'surname = "Surname"' to delete the expression
+            Pattern patternSurname = Pattern.compile("(\\Wsurname\\s*=\\s*\")(\\S+)(\")");
             while (scanner.hasNext()) {
-                String row = scanner.nextLine();
-                Matcher matcherSurnameDeleteSpaces = patternSurnameDeleteSpaces.matcher(row);
+                String row = scanner.next();
+                Matcher matcherName = patternName.matcher(row);
                 Matcher matcherSurname = patternSurname.matcher(row);
-                if (matcherSurnameDeleteSpaces.matches()) {
-                    surname = matcherSurnameDeleteSpaces.group(2);
-                    row = row.replace(matcherSurnameDeleteSpaces.group(1)+matcherSurnameDeleteSpaces.group(2)+matcherSurnameDeleteSpaces.group(3), "");
+                if ( matcherName.find() && matcherSurname.find() ) {
+                    String surname = matcherSurname.group(2);
+                    row = row
+                            .replaceAll(matcherName.group(1), matcherName.group(1)+" "+surname)
+                            .replaceAll(matcherSurname.group(1)+matcherSurname.group(2)+matcherSurname.group(3), "");
                 }
-                if (matcherSurname.matches()) {
-                    surname = matcherSurname.group(2);
-                    row = row.replace(matcherSurname.group(1)+matcherSurname.group(2)+matcherSurname.group(3), "");
-                }
-                personList.add(row);
-                if (row.contains("/>") || row.contains("</")) {
-                    for (String personRow : personList) {
-                        Matcher matcherName = patternName.matcher(personRow);
-                        if (matcherName.matches()) {
-                            personRow = personRow.replace(matcherName.group(1), matcherName.group(1)+" "+surname);
-                        }
-                        if (personRow.contains("</persons>")) {
-                            writer.write(personRow);
-                        } else {
-                            writer.write(personRow + "\n");
-                        }
-                    }
-                    personList.clear();
-                }
+                writer.write(row);
             }
         }
     }
@@ -127,7 +102,7 @@ public class Main {
         }
         if (fileList != null) {
             for (File fileJson : fileList) {
-                if (fileJson != null && fileJson.getName().endsWith(".json")) {
+                if (fileJson != null && fileJson.length() != 0 && fileJson.getName().endsWith(".json")) {
                     try (JsonParser jsonParser = jsonFactory.createParser(fileJson)) {
                         while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
                             String name = jsonParser.getCurrentName();
